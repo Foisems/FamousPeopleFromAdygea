@@ -1,0 +1,9 @@
+1) в MSSQL копируешь имя сервера (например у меня DESKTOP-JAKGMH2\SQLEXPRESS)
+2) в vs заходишь в App.config
+3) в строке подключения бд :
+
+<connectionStrings>
+  <add name="FamousPeopleDBEntities" connectionString="metadata=res://*/Model.Model1.csdl|res://*/Model.Model1.ssdl|res://*/Model.Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=DESKTOP-JAKGMH2\SQLEXPRESS;initial catalog=FamousPeopleDB;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" /></connectionStrings>
+  <entityFramework>
+
+заменяешь DESKTOP-JAKGMH2\SQLEXPRESS на имя своего сервера

@@ -1,0 +1,28 @@
+1. Запускаешь запрос SQLQueryForImage.sql
+2. Заменяешь в строке SET Image = CONCAT('C:\Users\Olya\Desktop\', Image); на путь в котором будет храниться твоя папка с прогой
+
+НАПРИМЕР
+
+У меня фотки хранятся по такому пути C:\Users\Olya\Desktop\FamousPeopleFromAdygea\FamousPeopleFromAdygea\Img
+
+я переношу папку \FamousPeopleFromAdygea на диск D:
+
+и заменяю SET Image = CONCAT('C:\Users\Olya\Desktop\', Image);  НА 
+          SET Image = CONCAT('D:\, Image);
+
+и ВЫПОЛНЯЮ ЗАПРОС в sql
+
+
+СТРУКТУРУ ОСТАВЬ ТАКОЙ ЖЕ \FamousPeopleFromAdygea\FamousPeopleFromAdygea
+
+если хочется вынести папку отдельно то в скрипте ЗАМЕНИ
+
+UPDATE FamousHuman
+SET Image = REPLACE(Image, 'C:\Users\Olya\Desktop\', '')
+WHERE Image LIKE 'C:\Users\Olya\Desktop\%';
+
+НА
+
+UPDATE FamousHuman
+SET Image = REPLACE(Image, 'C:\Users\Olya\Desktop\FamousPeopleFromAdygea\', '')
+WHERE Image LIKE 'C:\Users\Olya\Desktop\FamousPeopleFromAdygea\%';

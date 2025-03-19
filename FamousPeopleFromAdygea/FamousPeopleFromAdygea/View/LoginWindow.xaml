@@ -1,0 +1,70 @@
+﻿<Window x:Class="FamousPeopleFromAdygea.View.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FamousPeopleFromAdygea.View"
+        mc:Ignorable="d"
+        Title="Авторизация"
+        Height="450"
+        Width="400"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Closing="Window_Closing"
+        Background="#FF91BB89">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="80" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Введите логин"
+               Grid.Row="0"
+               Grid.Column="1"
+               FontSize="25"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top" />
+        <TextBox x:Name="loginTB"
+                 Grid.Row="0"
+                 Grid.Column="1"
+                 VerticalAlignment="Bottom"
+                 FontSize="19"
+                 Width="270"
+                 Margin="0, 26"
+                 Height="30" />
+        <Label Content="Введите пароль"
+               Grid.Row="1"
+               FontSize="25"
+               Grid.Column="1"
+               HorizontalAlignment="Center" />
+        <PasswordBox x:Name="passwordPB"
+                     Grid.Row="1"
+                     FontSize="19"
+                     VerticalAlignment="Top"
+                     Margin="0, 50"
+                     Width="270"
+                     Grid.Column="1"
+                     Grid.RowSpan="2"
+                     Height="30" />
+        <Button x:Name="EnterAdmin"
+                Content="Войти"
+                Grid.Row="2"
+                Grid.Column="1"
+                Width="200"
+                Height="50"
+                FontSize="25"
+                Click="EnterAdmin_Click" />
+        <Button x:Name="Enter"
+                Content="Войти без авторизации"
+                Grid.Row="3"
+                Grid.Column="1"
+                Width="280"
+                Height="50"
+                FontSize="25"
+                Click="Enter_Click" />
+    </Grid>
+</Window>

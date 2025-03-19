@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FamousPeopleDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="FamousHuman">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Patronymic" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="BirthDate" Type="DateTime" Precision="0" />
+    <Property Name="DeathDate" Type="DateTime" Precision="0" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="FamousHumanToUser" Relationship="Self.FK_FamousHumanToUser_FamousHuman" FromRole="FamousHuman" ToRole="FamousHumanToUser" />
+  </EntityType>
+  <EntityType Name="FamousHumanToUser">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="IdUser" />
+      <PropertyRef Name="IdFamousPeople" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUser" Type="Int32" Nullable="false" />
+    <Property Name="IdFamousPeople" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="FamousHuman" Relationship="Self.FK_FamousHumanToUser_FamousHuman" FromRole="FamousHumanToUser" ToRole="FamousHuman" />
+    <NavigationProperty Name="User" Relationship="Self.FK_FamousHumanToUser_User" FromRole="FamousHumanToUser" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdRole" Type="Int32" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="FamousHumanToUser" Relationship="Self.FK_FamousHumanToUser_User" FromRole="User" ToRole="FamousHumanToUser" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_FamousHumanToUser_FamousHuman">
+    <End Role="FamousHuman" Type="Self.FamousHuman" Multiplicity="1" />
+    <End Role="FamousHumanToUser" Type="Self.FamousHumanToUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FamousHuman">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FamousHumanToUser">
+        <PropertyRef Name="IdFamousPeople" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FamousHumanToUser_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="FamousHumanToUser" Type="Self.FamousHumanToUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FamousHumanToUser">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IdRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FamousPeopleDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="FamousHuman" EntityType="Self.FamousHuman" />
+    <EntitySet Name="FamousHumanToUser" EntityType="Self.FamousHumanToUser" />
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK_FamousHumanToUser_FamousHuman" Association="Self.FK_FamousHumanToUser_FamousHuman">
+      <End Role="FamousHuman" EntitySet="FamousHuman" />
+      <End Role="FamousHumanToUser" EntitySet="FamousHumanToUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FamousHumanToUser_User" Association="Self.FK_FamousHumanToUser_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="FamousHumanToUser" EntitySet="FamousHumanToUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
